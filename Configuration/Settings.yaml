@@ -1,0 +1,17 @@
+Networkteam:
+  Neos:
+    FriendlyCaptcha:
+      # An API key that proves it's you, create one on the Friendly Captcha website
+      secret: ''
+      # Log in to your Friendly Captcha account and head to the account page. https://app.friendlycaptcha.com/account
+      # Click the `Create Application button` and enter the necessary details.
+      # Once you have completed this, take note of the sitekey value in the apps table.
+      sitekey: ''
+      # Only relevant if you are using our dedicated EU endpoint service. By default the widget fetches puzzles
+      # from https://api.friendlycaptcha.com/api/v1/puzzle, which serves puzzles globally from over 200 data centers.
+      # As a premium service we offer an alternative endpoint that serves requests from datacenters in Germany only.
+      # https://eu-api.friendlycaptcha.eu/api/v1/puzzle, https://eu-api.friendlycaptcha.eu/api/v1/siteverify
+      puzzleEndpoint: 'https://api.friendlycaptcha.com/api/v1/puzzle'
+      verifyEndpoint: 'https://api.friendlycaptcha.com/api/v1/siteverify'
+      # You can create your own stylesheet for the Friendly Captcha widget. https://docs.friendlycaptcha.com/#/theme?id=using-your-own-stylesheet
+      useCustomStyling: true

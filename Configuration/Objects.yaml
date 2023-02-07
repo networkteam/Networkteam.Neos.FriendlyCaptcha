@@ -1,0 +1,6 @@
+Networkteam\Neos\FriendlyCaptcha\Validation\Validator\CaptchaSolutionValidator:
+  properties:
+    client:
+      object:
+        factoryObjectName: Networkteam\Neos\FriendlyCaptcha\Factory\HttpClientFactory
+        factoryMethodName: create

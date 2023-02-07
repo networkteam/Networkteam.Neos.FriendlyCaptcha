@@ -1,0 +1,22 @@
+Neos:
+  Neos:
+    fusion:
+      autoInclude:
+        'Networkteam.Neos.FriendlyCaptcha': true
+
+  Form:
+    presets:
+      default:
+        formElementTypes:
+          'Networkteam.Neos.FriendlyCaptcha:Form.Element.FriendlyCaptcha':
+            superTypes:
+              'Neos.Form:FormElement': true
+            validators:
+              -
+                identifier: 'Networkteam.Neos.FriendlyCaptcha:CaptchaSolution'
+        validatorPresets:
+          'Networkteam.Neos.FriendlyCaptcha:CaptchaSolution':
+            implementationClassName: Networkteam\Neos\FriendlyCaptcha\Validation\Validator\CaptchaSolutionValidator
+            options:
+              # Do not skip validation with null value to prevent deletion of element in submitted values
+              allowNull: false

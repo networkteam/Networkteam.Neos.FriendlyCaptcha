@@ -1,0 +1,40 @@
+prototype(Networkteam.Neos.FriendlyCaptcha:Widget) < prototype(Neos.Fusion:Component) {
+
+    # For possible attriburtes for html tag @see https://docs.friendlycaptcha.com/#/widget_api
+
+    # API
+    id = ''
+    name = ''
+    sitekey = ${Configuration.setting('Networkteam.Neos.FriendlyCaptcha.sitekey')}
+    puzzleEndpoint = ${Configuration.setting('Networkteam.Neos.FriendlyCaptcha.puzzleEndpoint')}
+    start = ''
+    lang = ''
+    # you can use additionalAttributes to override existing attributes, such as "class"
+    additionalAttributes = Neos.Fusion:DataStructure
+    useCustomStyling = ${Configuration.setting('Networkteam.Neos.FriendlyCaptcha.useCustomStyling')}
+    # /API
+
+    renderer = afx`
+        <div
+            id={props.id}
+            id.@if.hasValue={!String.isBlank(props.id)}
+            class="frc-captcha"
+            data-sitekey={props.sitekey}
+            data-puzzle-endpoint={props.puzzleEndpoint}
+            data-puzzle-endpoint.@if.hasValue={!String.isBlank(props.puzzleEndpoint)}
+            data-start={props.start}
+            data-start.@if.hasValue={!String.isBlank(props.start)}
+            data-lang={props.lang}
+            data-lang.@if.hasValue={!String.isBlank(props.lang)}
+            data-solution-field-name={props.name}
+            data-solution-field-name.@if.hasValue={!String.isBlank(props.name)}
+        ></div>
+    `
+    renderer.@process {
+        addAdditionalAttributes = Neos.Fusion:Augmenter {
+            @apply.additionalAttributes = ${props.additionalAttributes}
+        }
+        addStyleContainer = ${value + '<span id="frc-style"></span>'}
+        addStyleContainer.@if.useCustomStyling = ${props.useCustomStyling}
+    }
+}
