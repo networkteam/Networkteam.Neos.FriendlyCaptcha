@@ -36,3 +36,42 @@ frontend workflow (npm, yarn, etc.), or adding the widget script.
 
 1. https://docs.friendlycaptcha.com/#/installation?id=_2-adding-the-widget
 2. https://docs.friendlycaptcha.com/#/installation?id=adding-the-widget-itself
+
+### Using with fluid forms
+
+To use this package with fluid forms you have to define a form element template first.
+To do so set the `renderingOptions.templatePathPattern` of the `Networkteam.Neos.FriendlyCaptcha:Form.Element.FriendlyCaptcha` to your projects template folder.
+
+```yaml
+Neos:
+  Neos:
+    Form:
+      presets:
+        default:
+          formElementTypes:
+            'Networkteam.Neos.FriendlyCaptcha:Form.Element.FriendlyCaptcha':
+              renderingOptions:
+                templatePathPattern: 'resource://Your.Package/Private/Templates/Form/{@type}.html'
+              properties:
+                sitekey: 'your sitekey'
+                puzzleEndpoint: 'https://api.friendlycaptcha.com/api/v1/puzzle'
+```
+
+Then create the template to render the needed HTML markup.
+Make sure the `data-solution-field-name` is prefixed correctly to be recognized by Neos.
+
+```html
+<f:layout name="Neos.Form:Field"/>
+
+<f:section name="field">
+    <div
+        class="frc-captcha"
+        data-sitekey="{element.properties.sitekey}"
+        data-puzzle-endpoint="{element.properties.puzzleEndpoint}"
+        data-solution-field-name="--{element.rootForm.identifier}[{element.identifier}]"
+        data-lang="de"
+    >
+    </div>
+    <span id="fr-style"></span>
+</f:section>
+```
