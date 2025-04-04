@@ -1,0 +1,16 @@
+prototype(Networkteam.Neos.FriendlyCaptcha:FustionForm.Widget) < prototype(Networkteam.Neos.FriendlyCaptcha:Widget) {
+    # API
+    name = ${field.getName()}
+    lang = ${node.context.targetDimensions.language}
+    # /API
+
+    renderer.@process {
+        // Hidden field must be added manually, so that Fusion Form can generate `__trustedProperties` correctly.
+        // The `__trustedProperties` value is generated on runtime. FriendlyCaptcha adds thier hidden input via Javascript
+        // after page content has been generated. If hidden input is not created here, Fusion Form will reject the value
+        // of hidden field created by FriendlyCaptcha Javascript, because it is not part of `__trustedProperties` value
+        addHiddenInput = afx`
+            <Neos.Fusion.Form:Hidden />{value}
+        `
+    }
+}

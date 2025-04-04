@@ -28,8 +28,12 @@ Networkteam:
 
 ## Usage
 
-This package provides a prototype for rendering the widget: `Networkteam.Neos.FriendlyCaptcha:Widget`.
-The prototype is supposed to be used inside form rendering.
+This package provides two prototypes for rendering the widget:
+
+- `Networkteam.Neos.FriendlyCaptcha:Widget`
+- `Networkteam.Neos.FriendlyCaptcha:FusionForm.Widget`
+
+The prototypes are supposed to be used inside form rendering.
 
 Include the javascript sources provided by Friendly Captcha. You can do so by either importing the library to your
 frontend workflow (npm, yarn, etc.), or adding the widget script.
@@ -74,4 +78,47 @@ Make sure the `data-solution-field-name` is prefixed correctly to be recognized 
     </div>
     <span id="fr-style"></span>
 </f:section>
+```
+
+### Using with Fusion Form
+
+Adding the captcha to a Fusion Form is done by using the FusionForm.Widget prototype `Networkteam.Neos.FriendlyCaptcha:FustionForm.Widget`.
+Then you have to add the captcha field the schema configuration.
+
+Example:
+
+```fusion
+prototype(Your.Package:AFusionFormElement) < prototype(Neos.Neos:ContentComponent) {
+
+    renderer = Neos.Fusion.Form:Runtime.RuntimeForm {
+        namespace = 'my-contact-form'
+        
+        process {
+            schema {
+                name = ${Form.Schema.string().isRequired()}
+                email = ${Form.Schema.string().isRequired().validator('EmailAddress')}
+                captcha = ${Form.Schema.string().validator('Networkteam.Neos.FriendlyCaptcha:CaptchaSolution')}            
+            }
+            
+            content = Neos.Fusion:Component {
+                renderer = afx`
+                    <Neos.Fusion.Form:FieldContainer field.name="name">
+                        <Neos.Fusion.Form:Input />
+                    </Neos.Fusion.Form:FieldContainer>
+                    
+                    <Neos.Fusion.Form:FieldContainer field.name="email">
+                        <Neos.Fusion.Form:Input
+                            attributes.type="email"
+                            attributes.autocomplete="email"
+                        />
+                    </Neos.Fusion.Form:FieldContainer>
+                    
+                    <Neos.Fusion.Form:FieldContainer field.name="captcha">
+                        <Networkteam.Neos.FriendlyCaptcha:FustionForm.Widget />
+                    </Neos.Fusion.Form:FieldContainer>
+                `
+            }
+        }
+    }
+}
 ```
