@@ -82,8 +82,11 @@ Make sure the `data-solution-field-name` is prefixed correctly to be recognized 
 
 ### Using with Fusion Form
 
-Adding the captcha to a Fusion Form is done by using the FusionForm.Widget prototype `Networkteam.Neos.FriendlyCaptcha:FustionForm.Widget`.
-Then you have to add the captcha field the schema configuration.
+Adding the captcha to a [Fusion Form](https://github.com/neos/fusion-form) is done by using the FusionForm.Widget
+prototype `Networkteam.Neos.FriendlyCaptcha:FustionForm.Widget` inside form content. Secondly, you have to add the
+captcha field to the schema configuration.
+
+**Hint:** Make sure, that you have integrated the Friendly Captcha Javascript. Otherwise, the captcha won't work.
 
 Example:
 
